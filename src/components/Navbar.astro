@@ -1,0 +1,199 @@
+---
+import { profile } from '../data/portfolioData';
+---
+
+<header
+  id="navbar"
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-slate-950/70 backdrop-blur-md border-b border-slate-800/50"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div id="navbar-container" class="flex items-center justify-between h-16 sm:h-20 transition-all duration-300">
+      <!-- Logo / Inisial -->
+      <a href="#" class="flex items-center gap-3 group focus:outline-none" aria-label="Beranda">
+        <div class="relative w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-purple-500 flex items-center justify-center font-bold text-white text-base shadow-lg shadow-indigo-500/25 group-hover:scale-105 group-active:scale-95 transition-transform duration-200 overflow-hidden">
+          <span class="relative z-10">{profile.initials}</span>
+          <div class="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-bold text-slate-100 text-sm sm:text-base tracking-tight group-hover:text-indigo-400 transition-colors">
+            {profile.nickname}
+          </span>
+          <span class="text-[11px] text-slate-400 font-mono tracking-wider">
+            Teknik Informatika 24
+          </span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Menu -->
+      <nav id="desktop-nav" class="hidden md:flex items-center gap-1 lg:gap-1.5 p-1 rounded-xl bg-slate-900/40 border border-slate-800/40 backdrop-blur-md">
+        <a href="#about" class="nav-item px-3 py-1.5 text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 rounded-lg transition-all duration-200">
+          Tentang
+        </a>
+        <a href="#timeline" class="nav-item px-3 py-1.5 text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 rounded-lg transition-all duration-200">
+          Semester 1-5
+        </a>
+        <a href="#projects" class="nav-item px-3 py-1.5 text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 rounded-lg transition-all duration-200">
+          Proyek
+        </a>
+        <a href="#skills" class="nav-item px-3 py-1.5 text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 rounded-lg transition-all duration-200">
+          Skill Matrix
+        </a>
+        <a href="#experience" class="nav-item px-3 py-1.5 text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 rounded-lg transition-all duration-200">
+          Pengalaman
+        </a>
+        <a href="#contact" class="nav-item px-3 py-1.5 text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 rounded-lg transition-all duration-200">
+          Kontak
+        </a>
+      </nav>
+
+      <!-- Desktop CTA & Actions -->
+      <div class="hidden sm:flex items-center gap-3">
+        <a
+          href={profile.cvUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-interactive relative inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-gradient-to-r from-indigo-500 to-violet-600 text-white hover:from-indigo-400 hover:to-violet-500 shadow-md shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:-translate-y-0.5 active:translate-y-0 active:scale-95 transition-all duration-200 overflow-hidden"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+          </svg>
+          <span>Download CV</span>
+        </a>
+      </div>
+
+      <!-- Mobile Hamburger Button -->
+      <div class="flex md:hidden items-center gap-2">
+        <button
+          id="mobile-menu-toggle"
+          type="button"
+          aria-label="Toggle Navigation Menu"
+          class="p-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800 rounded-lg active:scale-90 transition-transform focus:outline-none"
+        >
+          <svg id="hamburger-icon" class="w-6 h-6 block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+          </svg>
+          <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Drawer Menu -->
+  <div
+    id="mobile-menu"
+    class="md:hidden hidden bg-slate-950/95 backdrop-blur-xl border-b border-slate-800/80 px-4 pt-2 pb-6 space-y-2 transition-all duration-300"
+  >
+    <a href="#about" class="mobile-nav-link block px-3 py-2.5 rounded-lg text-base font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 transition-colors">
+      Tentang
+    </a>
+    <a href="#timeline" class="mobile-nav-link block px-3 py-2.5 rounded-lg text-base font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 transition-colors">
+      Semester 1-5
+    </a>
+    <a href="#projects" class="mobile-nav-link block px-3 py-2.5 rounded-lg text-base font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 transition-colors">
+      Proyek
+    </a>
+    <a href="#skills" class="mobile-nav-link block px-3 py-2.5 rounded-lg text-base font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 transition-colors">
+      Skill Matrix
+    </a>
+    <a href="#experience" class="mobile-nav-link block px-3 py-2.5 rounded-lg text-base font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 transition-colors">
+      Pengalaman & Sertifikasi
+    </a>
+    <a href="#contact" class="mobile-nav-link block px-3 py-2.5 rounded-lg text-base font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 transition-colors">
+      Kontak
+    </a>
+    <div class="pt-3 border-t border-slate-800/80">
+      <a
+        href={profile.cvUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="flex items-center justify-center gap-2 w-full py-3 rounded-xl text-sm font-semibold bg-indigo-600 hover:bg-indigo-500 active:scale-95 text-white shadow-md transition-all"
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+        </svg>
+        Download CV / Resume
+      </a>
+    </div>
+  </div>
+</header>
+
+<script>
+  // 1. Mobile Menu Toggle
+  const toggleBtn = document.getElementById('mobile-menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const hamburgerIcon = document.getElementById('hamburger-icon');
+  const closeIcon = document.getElementById('close-icon');
+  const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+
+  if (toggleBtn && mobileMenu && hamburgerIcon && closeIcon) {
+    toggleBtn.addEventListener('click', () => {
+      const isHidden = mobileMenu.classList.contains('hidden');
+      if (isHidden) {
+        mobileMenu.classList.remove('hidden');
+        hamburgerIcon.classList.add('hidden');
+        closeIcon.classList.remove('hidden');
+      } else {
+        mobileMenu.classList.add('hidden');
+        hamburgerIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+      }
+    });
+
+    mobileLinks.forEach((link) => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        hamburgerIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+      });
+    });
+  }
+
+  // 2. Dynamic Navbar Elevation on Scroll
+  const navbar = document.getElementById('navbar');
+  const navContainer = document.getElementById('navbar-container');
+
+  window.addEventListener('scroll', () => {
+    if (!navbar || !navContainer) return;
+    if (window.scrollY > 30) {
+      navbar.classList.add('bg-slate-950/95', 'border-slate-700/60', 'shadow-xl', 'shadow-indigo-950/20');
+      navbar.classList.remove('bg-slate-950/70', 'border-slate-800/50');
+      navContainer.classList.remove('h-20');
+      navContainer.classList.add('h-16');
+    } else {
+      navbar.classList.remove('bg-slate-950/95', 'border-slate-700/60', 'shadow-xl', 'shadow-indigo-950/20');
+      navbar.classList.add('bg-slate-950/70', 'border-slate-800/50');
+      navContainer.classList.add('h-20');
+      navContainer.classList.remove('h-16');
+    }
+  }, { passive: true });
+
+  // 3. Active Nav Link Indicator on Scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navItems = document.querySelectorAll('.nav-item');
+
+  window.addEventListener('scroll', () => {
+    let currentId = '';
+    const scrollPos = window.scrollY + 140;
+
+    sections.forEach((section) => {
+      const secTop = (section as HTMLElement).offsetTop;
+      const secHeight = (section as HTMLElement).offsetHeight;
+      if (scrollPos >= secTop && scrollPos < secTop + secHeight) {
+        currentId = section.getAttribute('id') || '';
+      }
+    });
+
+    navItems.forEach((item) => {
+      const href = item.getAttribute('href');
+      if (href === `#${currentId}`) {
+        item.classList.add('text-indigo-400', 'bg-indigo-500/15', 'shadow-sm');
+        item.classList.remove('text-slate-300');
+      } else {
+        item.classList.remove('text-indigo-400', 'bg-indigo-500/15', 'shadow-sm');
+        item.classList.add('text-slate-300');
+      }
+    });
+  }, { passive: true });
+</script>

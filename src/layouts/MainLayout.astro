@@ -1,0 +1,268 @@
+---
+import '../styles/global.css';
+import { profile, siteConfig } from '../data/portfolioData';
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const {
+  title = `${profile.fullName} — Portofolio Magang Semester 6`,
+  description = profile.bio,
+  ogImage = '/og-image.png',
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || siteConfig.siteUrl);
+---
+
+<!doctype html>
+<html lang="id" class="dark scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="author" content={profile.fullName} />
+    <meta name="keywords" content={`Portofolio, ${profile.fullName}, Teknik Informatika, Mahasiswa Magang, Frontend Engineer, Full-Stack Developer, React, Astro, TypeScript, Polinema`} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph / Facebook / LinkedIn / WhatsApp -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(ogImage, canonicalURL)} />
+    <meta property="og:site_name" content={`${profile.fullName} Portfolio`} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={new URL(ogImage, canonicalURL)} />
+
+    <!-- Google Fonts Preconnect & Load -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-slate-950 text-slate-100 antialiased selection:bg-indigo-500/30 selection:text-indigo-200 relative overflow-x-hidden">
+    
+    <!-- Top Scroll-Driven Progress Bar -->
+    <div id="scroll-progress-container" class="fixed top-0 left-0 right-0 h-1 z-[100] bg-transparent pointer-events-none">
+      <div
+        id="scroll-progress-bar"
+        class="h-full w-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 shadow-sm shadow-indigo-500/50 transition-all duration-75 ease-out"
+      ></div>
+    </div>
+
+    <!-- Interactive Living Particle Mesh Background Canvas -->
+    <canvas id="particle-canvas" class="fixed inset-0 pointer-events-none -z-10 opacity-40"></canvas>
+
+    <!-- Ambient dynamic background glowing orbs -->
+    <div class="fixed inset-0 pointer-events-none -z-20 overflow-hidden">
+      <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[750px] h-[450px] bg-indigo-600/15 blur-[140px] rounded-full animate-ambient-1"></div>
+      <div class="absolute top-[35%] -left-40 w-[550px] h-[550px] bg-purple-600/10 blur-[160px] rounded-full animate-ambient-2"></div>
+      <div class="absolute top-[65%] -right-40 w-[550px] h-[550px] bg-blue-600/10 blur-[160px] rounded-full animate-ambient-1"></div>
+    </div>
+
+    <!-- Main Content Flow -->
+    <slot />
+
+    <!-- Floating Back to Top Button with Smooth Reveal -->
+    <button
+      id="back-to-top"
+      aria-label="Kembali ke atas"
+      class="fixed bottom-6 right-6 z-40 p-3 rounded-full bg-slate-900/90 hover:bg-indigo-600 text-slate-300 hover:text-white border border-slate-700/80 hover:border-indigo-400 shadow-xl shadow-black/50 opacity-0 translate-y-8 pointer-events-none transition-all duration-300 hover:scale-110 active:scale-95 group focus:outline-none"
+    >
+      <svg class="w-5 h-5 group-hover:-translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+      </svg>
+    </button>
+
+    <!-- Global Client Interactive Living Effects Script -->
+    <script>
+      // 1. Scroll-Driven Progress Bar & Back-to-Top Button
+      const progressBar = document.getElementById('scroll-progress-bar');
+      const backToTopBtn = document.getElementById('back-to-top');
+
+      window.addEventListener('scroll', () => {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+
+        if (progressBar) {
+          progressBar.style.width = `${scrollPercent}%`;
+        }
+
+        if (backToTopBtn) {
+          if (scrollTop > 350) {
+            backToTopBtn.classList.remove('opacity-0', 'translate-y-8', 'pointer-events-none');
+            backToTopBtn.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+          } else {
+            backToTopBtn.classList.add('opacity-0', 'translate-y-8', 'pointer-events-none');
+            backToTopBtn.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+          }
+        }
+      }, { passive: true });
+
+      if (backToTopBtn) {
+        backToTopBtn.addEventListener('click', () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+
+      // 2. Intersection Observer for Scroll-Reveal Animations
+      const observerCallback: IntersectionObserverCallback = (entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('reveal-active');
+            observer.unobserve(entry.target);
+          }
+        });
+      };
+
+      const observer = new IntersectionObserver(observerCallback, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -40px 0px',
+      });
+
+      document.querySelectorAll('.reveal-init').forEach((el) => {
+        observer.observe(el);
+      });
+
+      // 3. Subtle Tap / Click Ripple Feedback for Buttons & Interactive elements
+      document.addEventListener('pointerdown', (e) => {
+        const target = (e.target as HTMLElement).closest('button, a.btn-interactive, .interactive-card');
+        if (!target) return;
+
+        const rect = target.getBoundingClientRect();
+        const ripple = document.createElement('span');
+        ripple.className = 'click-ripple';
+        const size = Math.max(rect.width, rect.height);
+        ripple.style.width = ripple.style.height = `${size}px`;
+        ripple.style.left = `${e.clientX - rect.left - size / 2}px`;
+        ripple.style.top = `${e.clientY - rect.top - size / 2}px`;
+
+        target.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 600);
+      });
+
+      // 4. Cursor Spotlight Position Tracker for Cards
+      document.addEventListener('mousemove', (e) => {
+        document.querySelectorAll('.spotlight-card').forEach((card) => {
+          const rect = (card as HTMLElement).getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          (card as HTMLElement).style.setProperty('--mouse-x', `${x}px`);
+          (card as HTMLElement).style.setProperty('--mouse-y', `${y}px`);
+        });
+      }, { passive: true });
+
+      // 5. Lightweight Interactive Living Particle Mesh Background
+      const canvas = document.getElementById('particle-canvas') as HTMLCanvasElement | null;
+      if (canvas) {
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+          let width = (canvas.width = window.innerWidth);
+          let height = (canvas.height = window.innerHeight);
+
+          window.addEventListener('resize', () => {
+            if (!canvas) return;
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+          }, { passive: true });
+
+          const numParticles = Math.min(width < 768 ? 25 : 45, 55);
+          const particles: Array<{
+            x: number;
+            y: number;
+            vx: number;
+            vy: number;
+            radius: number;
+            alpha: number;
+          }> = [];
+
+          for (let i = 0; i < numParticles; i++) {
+            particles.push({
+              x: Math.random() * width,
+              y: Math.random() * height,
+              vx: (Math.random() - 0.5) * 0.45,
+              vy: (Math.random() - 0.5) * 0.45,
+              radius: Math.random() * 1.6 + 0.8,
+              alpha: Math.random() * 0.4 + 0.2,
+            });
+          }
+
+          let mouseX = -1000;
+          let mouseY = -1000;
+          window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+          }, { passive: true });
+
+          const render = () => {
+            ctx.clearRect(0, 0, width, height);
+
+            // Draw and update particles
+            for (let i = 0; i < particles.length; i++) {
+              const p = particles[i];
+              p.x += p.vx;
+              p.y += p.vy;
+
+              if (p.x < 0) p.x = width;
+              if (p.x > width) p.x = 0;
+              if (p.y < 0) p.y = height;
+              if (p.y > height) p.y = 0;
+
+              // Gentle subtle attraction to mouse
+              const dx = mouseX - p.x;
+              const dy = mouseY - p.y;
+              const dist = Math.sqrt(dx * dx + dy * dy);
+              if (dist < 180) {
+                p.x += (dx / dist) * 0.35;
+                p.y += (dy / dist) * 0.35;
+              }
+
+              ctx.beginPath();
+              ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+              ctx.fillStyle = `rgba(129, 140, 248, ${p.alpha})`;
+              ctx.fill();
+
+              // Connect nearby particles with subtle light line
+              for (let j = i + 1; j < particles.length; j++) {
+                const p2 = particles[j];
+                const d2x = p.x - p2.x;
+                const d2y = p.y - p2.y;
+                const dist2 = Math.sqrt(d2x * d2x + d2y * d2y);
+
+                if (dist2 < 120) {
+                  ctx.beginPath();
+                  ctx.moveTo(p.x, p.y);
+                  ctx.lineTo(p2.x, p2.y);
+                  ctx.strokeStyle = `rgba(99, 102, 241, ${(1 - dist2 / 120) * 0.15})`;
+                  ctx.lineWidth = 0.8;
+                  ctx.stroke();
+                }
+              }
+            }
+
+            requestAnimationFrame(render);
+          };
+
+          requestAnimationFrame(render);
+        }
+      }
+    </script>
+  </body>
+</html>
