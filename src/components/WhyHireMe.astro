@@ -1,17 +1,9 @@
 ---
-import { whyHireCards } from '../data/portfolioData';
-
-// Icons mapping helper (clean inline SVGs for fast rendering without hydration overhead)
-const iconMap: Record<string, string> = {
-  Brain: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>`,
-  Layers: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>`,
-  Lightbulb: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>`,
-  Users: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>`,
-};
+import WhyHireCards from './WhyHireCards';
 ---
 
-<section id="why-hire" class="py-16 sm:py-24 border-t border-slate-900 bg-slate-950/50">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<section id="why-hire" class="py-14 sm:py-20 border-t border-slate-900 bg-slate-950/50 overflow-hidden">
+  <div class="max-w-[1536px] mx-auto px-4 sm:px-8 lg:px-12">
     <!-- Header -->
     <div class="text-center max-w-3xl mx-auto reveal-init">
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold uppercase tracking-wider mb-4">
@@ -25,50 +17,8 @@ const iconMap: Record<string, string> = {
       </p>
     </div>
 
-    <!-- Bento Grid (4 Cards) -->
-    <div class="mt-12 sm:mt-16 grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-      {
-        whyHireCards.map((card, index) => (
-          <div class="interactive-card spotlight-card reveal-init relative group p-6 sm:p-8 rounded-2xl bg-slate-900/70 border border-slate-800/80 hover:border-indigo-500/60 overflow-hidden cursor-pointer">
-            <!-- Ambient gradient background inside card -->
-            <div class={`absolute inset-0 bg-gradient-to-br ${card.accentColor} opacity-50 rounded-2xl pointer-events-none`}></div>
-
-            <div class="relative z-10">
-              <!-- Top Row: Icon & Pill -->
-              <div class="flex items-center justify-between mb-5">
-                <div class="w-12 h-12 rounded-xl bg-slate-800/80 border border-slate-700/60 flex items-center justify-center text-indigo-400 group-hover:text-white group-hover:bg-indigo-600 transition-colors duration-200">
-                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" set:html={iconMap[card.icon] || iconMap.Brain} />
-                </div>
-                <span class="text-xs font-mono font-medium text-slate-400 px-3 py-1 rounded-full bg-slate-800/50 border border-slate-700/40">
-                  0{index + 1} // Value Pillar
-                </span>
-              </div>
-
-              <!-- Title & Subtitle -->
-              <h3 class="text-xl sm:text-2xl font-bold text-white group-hover:text-indigo-300 transition-colors">
-                {card.title}
-              </h3>
-              <p class="text-xs font-mono text-indigo-400 uppercase tracking-wider mt-1 mb-3">
-                {card.subtitle}
-              </p>
-
-              <!-- Description -->
-              <p class="text-sm sm:text-base text-slate-400 leading-relaxed mb-6">
-                {card.description}
-              </p>
-
-              <!-- Highlights Tags -->
-              <div class="pt-4 border-t border-slate-800/80 flex flex-wrap gap-2">
-                {card.highlights.map((tag) => (
-                  <span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-slate-800/80 text-slate-300 border border-slate-700/50">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-        ))
-      }
-    </div>
+    <!-- Bento Grid (4 Cards converging from 4 corners to center) -->
+    <WhyHireCards client:visible />
   </div>
 </section>
+

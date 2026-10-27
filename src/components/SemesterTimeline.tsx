@@ -10,8 +10,8 @@ export default function SemesterTimeline() {
       : semesters.filter((sem) => sem.id === selectedSemester);
 
   return (
-    <section id="timeline" className="py-16 sm:py-24 border-t border-slate-900 bg-slate-950">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="timeline" className="py-14 sm:py-20 border-t border-slate-900 bg-slate-950">
+      <div className="max-w-[1536px] mx-auto px-4 sm:px-8 lg:px-12">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto">

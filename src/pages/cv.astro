@@ -1,0 +1,530 @@
+---
+import { profile } from '../data/portfolioData';
+---
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Curriculum Vitae — {profile.fullName}</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    @page {
+      size: A4 portrait;
+      margin: 0;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      font-family: "Times New Roman", Times, "Nimbus Roman No9 L", Georgia, serif;
+      color: #222;
+      background-color: #f1f5f9;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.4;
+      font-weight: 400;
+    }
+
+    .cv-page {
+      width: 210mm;
+      height: 297mm;
+      max-height: 297mm;
+      padding: 13mm 16mm 10mm 16mm;
+      margin: 20px auto;
+      background: white;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+      box-sizing: border-box;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      page-break-after: always;
+      break-after: page;
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    .cv-page:last-child {
+      page-break-after: avoid;
+      break-after: avoid;
+    }
+
+    .cv-section-title {
+      font-family: "Times New Roman", Times, serif;
+      font-size: 11pt;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border-bottom: 1.2px solid #000;
+      padding-bottom: 1px;
+      margin-top: 8pt;
+      margin-bottom: 4pt;
+      color: #000;
+    }
+
+    .cv-header-title {
+      font-size: 21pt;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-align: center;
+      text-transform: uppercase;
+      margin: 0 0 3pt 0;
+      color: #000;
+    }
+
+    .cv-contact-bar {
+      font-size: 8.8pt;
+      text-align: center;
+      color: #333;
+      margin-bottom: 9pt;
+      letter-spacing: 0.01em;
+      font-weight: 400;
+    }
+
+    .cv-contact-bar a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .cv-contact-bar a:hover {
+      text-decoration: underline;
+    }
+
+    .cv-entry-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 9.8pt;
+    }
+
+    .cv-entry-title {
+      font-weight: 700;
+      color: #000;
+    }
+
+    .cv-entry-date {
+      font-size: 8.8pt;
+      color: #444;
+      white-space: nowrap;
+      font-weight: 400;
+    }
+
+    .cv-entry-subtitle {
+      font-style: italic;
+      font-size: 9pt;
+      color: #333;
+      margin-top: 0.5pt;
+      margin-bottom: 2pt;
+      font-weight: 400;
+    }
+
+    .cv-bullet-list {
+      margin: 0;
+      padding-left: 12pt;
+      list-style-type: none;
+    }
+
+    .cv-bullet-item {
+      position: relative;
+      font-size: 9pt;
+      font-weight: 400;
+      color: #2b2b2b;
+      margin-bottom: 2pt;
+      line-height: 1.4;
+      text-align: justify;
+    }
+
+    .cv-bullet-item::before {
+      content: "-";
+      position: absolute;
+      left: -9pt;
+      color: #444;
+      font-weight: 400;
+    }
+
+    .cv-text-body {
+      font-size: 9pt;
+      font-weight: 400;
+      color: #2b2b2b;
+      line-height: 1.42;
+      text-align: justify;
+      margin: 0 0 3.5pt 0;
+    }
+
+    .cv-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 8pt;
+      color: #666;
+      border-top: 0.5px solid #e2e8f0;
+      padding-top: 4pt;
+      margin-top: 8pt;
+      font-weight: 400;
+    }
+
+    /* Action Toolbar (Hidden during print) */
+    .no-print {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: #0f172a;
+      border-bottom: 1px solid #1e293b;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      font-family: 'Inter', sans-serif;
+    }
+
+    .btn-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: white;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.95;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: #1e293b;
+      color: #cbd5e1;
+      border: 1px solid #334155;
+    }
+
+    .btn-secondary:hover {
+      background: #334155;
+      color: white;
+    }
+
+    @media print {
+      body {
+        background: white;
+      }
+
+      .no-print {
+        display: none !important;
+      }
+
+      .cv-page {
+        margin: 0 !important;
+        box-shadow: none !important;
+        border: none !important;
+        width: 210mm !important;
+        height: 297mm !important;
+        max-height: 297mm !important;
+        page-break-after: always !important;
+        break-after: page !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        padding: 13mm 16mm 10mm 16mm !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+      }
+
+      .cv-page:last-child {
+        page-break-after: avoid !important;
+        break-after: avoid !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Action Toolbar for user (Non-printable) -->
+  <div class="no-print">
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <a href="/" class="btn-action btn-secondary">
+        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
+        <span>Kembali ke Website</span>
+      </a>
+      <span style="color: #94a3b8; font-size: 13px;">Format CV: ATS-Friendly Standard (2 Halaman)</span>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <button onclick="window.print()" class="btn-action btn-primary">
+        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" /></svg>
+        <span>Cetak / Simpan PDF (Ctrl + P)</span>
+      </button>
+
+      <a href="/cv-handino-asa-galih.pdf" download="CV-Handino-Asa-Galih-Romadhon.pdf" class="btn-action btn-secondary">
+        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+        <span>Download PDF</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!-- PAGE 1                                                         -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <div class="cv-page">
+    <div>
+      
+      <!-- HEADER -->
+      <h1 class="cv-header-title">HANDINO ASA GALIH ROMADHON</h1>
+      <div class="cv-contact-bar">
+        +62 822 3234 7402 &nbsp;|&nbsp; 
+        <a href="mailto:hasagalihr@gmail.com">hasagalihr@gmail.com</a> &nbsp;|&nbsp; 
+        <a href="https://handino-portfolio.vercel.app" target="_blank">handino-portfolio.vercel.app</a> &nbsp;|&nbsp; 
+        <a href="https://github.com/Handinoasa" target="_blank">github.com/Handinoasa</a> &nbsp;|&nbsp; 
+        <a href="https://www.linkedin.com/in/handino-asa-galih-r-b2535137a" target="_blank">linkedin.com/in/handino-galih</a> &nbsp;|&nbsp; 
+        Kota Malang, Jawa Timur
+      </div>
+
+      <!-- PROFIL SINGKAT -->
+      <div class="cv-section-title">PROFIL SINGKAT</div>
+      <p class="cv-text-body">
+        Mahasiswa D-IV Teknik Informatika Semester 5 Politeknik Negeri Malang dengan dedikasi tinggi pada Full-Stack Web Development, System Analysis, dan Quality Assurance. Berpengalaman dalam merancang arsitektur sistem berbasis teknologi modern (React, Astro, TypeScript, Laravel), menyusun dokumentasi teknis komprehensif (SRS, ERD, alur proses bisnis), serta merancang strategi pengujian perangkat lunak terstruktur. Terbiasa bekerja secara kolaboratif dalam tim agile, adaptif terhadap teknologi baru, dan berkomitmen menghasilkan solusi digital yang andal serta berorientasi pada efisiensi operasional.
+      </p>
+
+      <!-- PENDIDIKAN -->
+      <div class="cv-section-title">PENDIDIKAN</div>
+      <div style="margin-bottom: 6pt;">
+        <div class="cv-entry-header">
+          <span class="cv-entry-title">Politeknik Negeri Malang</span>
+          <span class="cv-entry-date">2023 – Sekarang</span>
+        </div>
+        <div class="cv-entry-subtitle">
+          Jurusan Teknologi Informasi · Program Studi D-IV Teknik Informatika (Semester 5)
+        </div>
+        <ul class="cv-bullet-list">
+          <li class="cv-bullet-item">
+            Fokus Akademik: Struktur Data & Algoritma, Rekayasa Perangkat Lunak, Basis Data Relasional, Pemrograman Web Lanjut, dan Analisis & Desain Sistem Informasi.
+          </li>
+          <li class="cv-bullet-item">
+            Menyelesaikan proyek berbasis industri (Project-Based Learning) dengan penekanan pada pemodelan alur kerja bisnis, pemodelan data, dan pengujian kualitas perangkat lunak.
+          </li>
+        </ul>
+      </div>
+
+      <!-- PENGALAMAN ORGANISASI & KEPANITIAAN -->
+      <div class="cv-section-title">PENGALAMAN ORGANISASI & KEPANITIAAN</div>
+      <div style="margin-bottom: 6pt;">
+        <div class="cv-entry-header">
+          <span class="cv-entry-title">Panitia Prastudi Mahasiswa Baru JTI Polinema 2025</span>
+          <span class="cv-entry-date">Agu 2025</span>
+        </div>
+        <div class="cv-entry-subtitle">
+          Volunteer Divisi Operasional Lapangan · Himpunan Mahasiswa Teknologi Informasi (HMTI) Polinema
+        </div>
+        <ul class="cv-bullet-list">
+          <li class="cv-bullet-item">
+            Bertanggung jawab atas koordinasi operasional dan kedisiplinan lapangan dalam rangkaian kaderisasi resmi jurusan bagi ratusan mahasiswa baru lintas program studi.
+          </li>
+          <li class="cv-bullet-item">
+            Memfasilitasi pengenalan budaya akademik, tata tertib komputasi, dan etika profesional kampus dengan komunikasi tim yang adaptif serta terstruktur.
+          </li>
+          <li class="cv-bullet-item">
+            Menerima Sertifikat Kepanitiaan Resmi Nomor: 21069/PL2.3/KM/2025 yang disahkan oleh Wakil Direktur III dan Dosen Pembina Kemahasiswaan Polinema.
+          </li>
+        </ul>
+      </div>
+
+      <!-- PROYEK (BAGIAN 1) -->
+      <div class="cv-section-title">PROYEK REKAYASA PERANGKAT LUNAK</div>
+      
+      <!-- Proyek 1 -->
+      <div style="margin-bottom: 6pt;">
+        <div class="cv-entry-header">
+          <span class="cv-entry-title">PBL Lab DT · Sistem Informasi Manajemen Laboratorium Digital</span>
+          <span class="cv-entry-date">2024</span>
+        </div>
+        <div class="cv-entry-subtitle">
+          System Analyst & Data Modeler · Laravel, MySQL, ERD, SRS, Use Case Diagram, Git
+        </div>
+        <ul class="cv-bullet-list">
+          <li class="cv-bullet-item">
+            Bertindak sebagai System Analyst dalam tim 4 orang, memimpin perancangan dokumen spesifikasi kebutuhan sistem (SRS), use case diagram, dan activity diagram alur operasional lab.
+          </li>
+          <li class="cv-bullet-item">
+            Merancang skema relasional Entity Relationship Diagram (ERD) dan struktur database MySQL untuk pencatatan inventaris, penjadwalan peminjaman alat, serta pelaporan log aktivitas lab.
+          </li>
+          <li class="cv-bullet-item">
+            Memastikan sinkronisasi antara kebutuhan fungsional pengguna dengan implementasi kode backend Laravel dan koordinasi version control melalui Git/GitHub.
+          </li>
+        </ul>
+      </div>
+
+      <!-- Proyek 2 -->
+      <div style="margin-bottom: 4pt;">
+        <div class="cv-entry-header">
+          <span class="cv-entry-title">PWL POS · Sistem Point of Sales & Manajemen Inventaris</span>
+          <span class="cv-entry-date">2024</span>
+        </div>
+        <div class="cv-entry-subtitle">
+          Full-Stack Web Developer (Proyek Mandiri) · Laravel 11, PHP 8.2, MySQL, Tailwind CSS, REST API
+        </div>
+        <ul class="cv-bullet-list">
+          <li class="cv-bullet-item">
+            Membangun aplikasi kasir dan inventory management dari hulu ke hilir secara mandiri dengan alur kasir real-time, kalkulasi stok otomatis, serta validasi transaksi.
+          </li>
+          <li class="cv-bullet-item">
+            Mengimplementasikan autentikasi multi-role (Admin, Kasir, Manager), visualisasi grafik laporan penjualan periodik, serta optimasi query Eloquent ORM untuk performa responsif.
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- FOOTER PAGE 1 -->
+    <div class="cv-footer">
+      <span>Handino Asa Galih Romadhon · Full-Stack Web Developer</span>
+      <span>1 / 2</span>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!-- PAGE 2                                                         -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <div class="cv-page">
+    <div>
+
+      <!-- PROYEK (LANJUTAN) -->
+      <div class="cv-section-title" style="margin-top: 0;">PROYEK REKAYASA PERANGKAT LUNAK (LANJUTAN)</div>
+
+      <!-- Proyek 3 -->
+      <div style="margin-bottom: 6pt;">
+        <div class="cv-entry-header">
+          <span class="cv-entry-title">GoTrack · Sistem Tracking Produksi Digital Printing (Mitra Deenhag)</span>
+          <span class="cv-entry-date">2024</span>
+        </div>
+        <div class="cv-entry-subtitle">
+          System Analyst & Documentation Lead · System Analysis, SRS, DFD, Workflow Mapping, Agile
+        </div>
+        <ul class="cv-bullet-list">
+          <li class="cv-bullet-item">
+            Melakukan elicitation kebutuhan teknis secara langsung dengan mitra industri percetakan digital Deenhag guna memetakan bottleneck operasional penanganan pesanan massal.
+          </li>
+          <li class="cv-bullet-item">
+            Menyusun dokumen arsitektur komprehensif mencakup Data Flow Diagram (DFD level 0–2), diagram alur produksi 4 fase (Desain, Cetak, Finishing, Siap Ambil), serta aturan bisnis sistem.
+          </li>
+          <li class="cv-bullet-item">
+            Mengawal kesesuaian antara ekspektasi mitra dan arsitektur aplikasi web tracking progress pengerjaan produk cetak yang dikembangkan oleh tim 4 orang.
+          </li>
+        </ul>
+      </div>
+
+      <!-- Proyek 4 -->
+      <div style="margin-bottom: 7pt;">
+        <div class="cv-entry-header">
+          <span class="cv-entry-title">Roastmate · Smart Mobile Assistant for Coffee Roasting</span>
+          <span class="cv-entry-date">2024</span>
+        </div>
+        <div class="cv-entry-subtitle">
+          QA Plan Engineer · QA Test Planning, Test Cases Matrix, Blackbox Testing, Usability Testing
+        </div>
+        <ul class="cv-bullet-list">
+          <li class="cv-bullet-item">
+            Merancang Software Quality Assurance Plan (SQA), mendefinisikan puluhan skenario pengujian (Positive & Negative Test Cases), serta matriks keterlacakan bug aplikasi mobile.
+          </li>
+          <li class="cv-bullet-item">
+            Mengeksekusi pengujian fungsionalitas (Blackbox Testing) pada pencatatan profil sangrai kopi, timer, dan kalkulasi rasio guna menjamin kestabilan aplikasi sebelum tahap rilis.
+          </li>
+        </ul>
+      </div>
+
+      <!-- PRESTASI, SERTIFIKASI & PELATIHAN -->
+      <div class="cv-section-title">PRESTASI, SERTIFIKASI & PELATIHAN</div>
+
+      <div style="margin-bottom: 5pt;">
+        <div class="cv-entry-header">
+          <span class="cv-entry-title">Future Entrepreneur Summit (FEST) & Startup Founder Clash</span>
+          <span class="cv-entry-date">Okt 2024 – Feb 2025</span>
+        </div>
+        <div class="cv-entry-subtitle">
+          BEM FEB Universitas Muhammadiyah Malang & FEST Indonesia · DOME UMM Malang
+        </div>
+        <ul class="cv-bullet-list">
+          <li class="cv-bullet-item">
+            Kompetisi Ide Bisnis Tingkat Nasional: Terpilih sebagai peserta pada ajang Startup Founder Clash Nasional dalam merumuskan validasi problem-solution fit dan model bisnis digital.
+          </li>
+          <li class="cv-bullet-item">
+            FEST GoWorld Asia Futurepreneur Selection Program 2025: Terpilih dalam seleksi peserta program internasional kewirausahaan pemuda Asia (International Level).
+          </li>
+          <li class="cv-bullet-item">
+            Sertifikasi Pelatihan Nasional: Menuntaskan Training Public Speaking (Grow Project), Pelatihan Entrepreneurship Nasional, dan Seminar Nasional Future Entrepreneur Summit 2025.
+          </li>
+        </ul>
+      </div>
+
+      <div style="margin-bottom: 7pt;">
+        <div class="cv-entry-header">
+          <span class="cv-entry-title">Webinar Nasional Soft Skill Development di Era Digitalisasi</span>
+          <span class="cv-entry-date">Nov 2024</span>
+        </div>
+        <div class="cv-entry-subtitle">
+          Wardah x FEST Management · Program Pengembangan Karir & Dunia Kerja
+        </div>
+        <ul class="cv-bullet-list">
+          <li class="cv-bullet-item">
+            Pelatihan intensif pengembangan kompetensi profesional, adaptabilitas teknologi kerja, serta komunikasi interpersonal dalam lingkungan rekayasa modern.
+          </li>
+        </ul>
+      </div>
+
+      <!-- KEAHLIAN -->
+      <div class="cv-section-title">KEAHLIAN</div>
+
+      <div style="font-size: 9pt; line-height: 1.42; color: #2b2b2b;">
+        <p style="margin: 0 0 2pt 0; font-weight: 700; color: #111;">Teknis:</p>
+        <ul class="cv-bullet-list" style="margin-bottom: 4pt;">
+          <li class="cv-bullet-item">
+            Bahasa Pemrograman: TypeScript, JavaScript (ES6+), PHP, Java, Dart, SQL, HTML5, CSS3.
+          </li>
+          <li class="cv-bullet-item">
+            Framework & Library Web: React.js, Astro (Islands Architecture), Next.js, Laravel, Node.js & Express, Tailwind CSS.
+          </li>
+          <li class="cv-bullet-item">
+            Basis Data & Penyimpanan: MySQL, PostgreSQL, Relational Schema Design, Eloquent ORM.
+          </li>
+          <li class="cv-bullet-item">
+            System Analysis & QA: Software Requirements Specification (SRS), ERD & DFD Modeling, Use Case & Activity Diagrams, QA Test Planning, Blackbox Testing, Bug Tracking.
+          </li>
+          <li class="cv-bullet-item">
+            Tools & Alur Kerja: Git, GitHub, VS Code, Postman, Linux / WSL2, Antigravity IDE, Agile/Scrum Workflow.
+          </li>
+        </ul>
+
+        <p style="margin: 3pt 0 2pt 0; font-weight: 700; color: #111;">Non-Teknis & Manajerial:</p>
+        <p class="cv-text-body" style="padding-left: 12pt; margin-bottom: 0;">
+          Problem Solving Terstruktur, Analisis Kebutuhan Pengguna, Komunikasi Teknis & Presentasi, Manajemen Waktu, Kolaborasi Tim Lintas Disiplin, Fast Learner & Adaptabilitas Tinggi.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- FOOTER PAGE 2 -->
+    <div class="cv-footer">
+      <span>Handino Asa Galih Romadhon · Full-Stack Web Developer</span>
+      <span>2 / 2</span>
+    </div>
+  </div>
+
+</body>
+</html>

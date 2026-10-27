@@ -100,6 +100,12 @@ export interface Skill {
 
 export type ExperienceType = "organization" | "committee" | "lab" | "certification" | "achievement";
 
+export interface CertificateCredential {
+  name: string;
+  link?: string;
+  type?: "pdf" | "image" | "url";
+}
+
 export interface Experience {
   id: string;
   type: ExperienceType;
@@ -109,6 +115,7 @@ export interface Experience {
   description: string;
   tags: string[];
   link?: string;
+  credentials?: CertificateCredential[];
 }
 
 export interface WhyHireCard {
@@ -427,163 +434,157 @@ export const semesters: Semester[] = [
 
 export const projects: Project[] = [
   {
-    id: "taskflow",
-    title: "TaskFlow — Project Management Platform",
+    id: "pbl-lab-dt",
+    title: "PBL Lab DT — Sistem Informasi Laboratorium",
     category: "Full-Stack Web",
-    semester: 4,
+    semester: 3,
     summary:
-      "Platform manajemen proyek tim berbasis web dengan fitur Kanban board interaktif, JWT authentication, dan real-time collaboration.",
+      "Platform web manajemen operasional & layanan Laboratorium DT berbasis PHP dan PostgreSQL, dikembangkan dalam tim 4 orang dengan kontribusi utama pada System Analysis, perancangan proses bisnis (UML), dan arsitektur database relasional (ERD).",
     techStack: [
-      { name: "React", color: "bg-cyan-500/10 text-cyan-400 border-cyan-500/20" },
-      { name: "TypeScript", color: "bg-blue-500/10 text-blue-400 border-blue-500/20" },
-      { name: "Node.js", color: "bg-green-500/10 text-green-400 border-green-500/20" },
-      { name: "PostgreSQL", color: "bg-indigo-500/10 text-indigo-400 border-indigo-500/20" },
-      { name: "JWT Auth", color: "bg-violet-500/10 text-violet-400 border-violet-500/20" },
+      { name: "System Analysis & UML", color: "bg-indigo-500/10 text-indigo-400 border-indigo-500/20" },
+      { name: "ERD & Data Modeling", color: "bg-blue-500/10 text-blue-400 border-blue-500/20" },
+      { name: "PostgreSQL", color: "bg-cyan-500/10 text-cyan-400 border-cyan-500/20" },
+      { name: "SQL Views & Procedures", color: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20" },
+      { name: "PHP (MVC)", color: "bg-violet-500/10 text-violet-400 border-violet-500/20" },
       { name: "Tailwind CSS", color: "bg-sky-500/10 text-sky-400 border-sky-500/20" },
     ],
-    demoUrl: "https://taskflow-demo.vercel.app",
-    githubUrl: "https://github.com/handino-galih/taskflow",
+    demoUrl: "",
+    githubUrl: "https://github.com/404GH0ST/PBL-Lab-DT",
     featured: true,
-    imageGradient: "from-cyan-500 via-blue-600 to-violet-700",
+    imageGradient: "from-blue-600 via-indigo-600 to-violet-800",
     star: {
       situation:
-        "Tim proyek kampus saya kesulitan melacak progres tugas karena menggunakan spreadsheet yang tidak real-time dan menyebabkan miskomunikasi antar anggota. Dibutuhkan solusi manajemen proyek yang terintegrasi dan mudah digunakan.",
+        "Dalam proyek PBL (Project-Based Learning) berkelompok 4 orang, Laboratorium DT membutuhkan sistem informasi terpusat untuk mendigitalisasi pengelolaan inventaris dan operasional lab. Tantangan utamanya adalah merancang sistem dari nol dengan alur multi-aktor (admin, teknisi/laboran, civitas) serta skema data yang kompleks agar tim developer memiliki blueprint yang jelas dan tidak terjadi anomali data.",
       architecture:
-        "Membangun full-stack SPA menggunakan React + TypeScript untuk frontend dengan state management via Context API. Backend menggunakan Node.js/Express dengan arsitektur RESTful API dan PostgreSQL sebagai database. Implementasi JWT untuk autentikasi stateless, dengan refresh token yang tersimpan aman di HttpOnly cookie. Database dirancang dengan skema 3NF dan menggunakan indexing pada kolom foreign key untuk performa query optimal.",
+        "Berperan sebagai System Analyst & Data Modeler: memimpin rekayasa kebutuhan (requirements engineering) dan memodelkan alur bisnis sistem secara presisi menggunakan UML (Use Case, Activity, & Sequence Diagram) serta DFD. Mendesain arsitektur database relasional (ERD) ternormalisasi 3NF pada PostgreSQL, termasuk merancang skrip DDL/DML, views agregasi data, dan stored procedure. Menyusun dokumentasi spesifikasi teknis dan Laporan Akhir PBL sebagai single source of truth untuk rekan pengembang di tim.",
       result:
-        "Platform berhasil digunakan oleh 4 tim (±30 mahasiswa) selama 3 sprint proyek. Waktu sinkronisasi status task berkurang dari 30 menit rapat harian menjadi real-time. Response time API rata-rata < 120ms dengan query yang dioptimasi. Mendapat nilai A di mata kuliah RPL.",
+        "Berkat perancangan sistem dan ERD yang matang di awal, tim developer berhasil mengimplementasikan seluruh fitur tepat waktu tanpa kendala refactor struktur database di tengah jalan. Skema relasi database terbukti solid tanpa redundansi, dan dokumentasi teknis yang komprehensif mengantarkan proyek mendapatkan penilaian sangat baik pada evaluasi PBL.",
     },
   },
   {
-    id: "shopease",
-    title: "ShopEase — E-Commerce Platform",
+    id: "pwl-pos",
+    title: "Point of Sales (POS) — Retail Transaction System",
     category: "Full-Stack Web",
     semester: 4,
     summary:
-      "Platform e-commerce lengkap dengan sistem manajemen produk, keranjang belanja, payment gateway simulation, dan admin dashboard.",
+      "Aplikasi web Point of Sales (POS) ritel yang dibangun mandiri menggunakan Laravel dan MySQL, mencakup manajemen multi-role user, katalog inventaris barang, pelacakan stok, dan pencatatan transaksi kasir secara terintegrasi.",
     techStack: [
-      { name: "Next.js", color: "bg-slate-500/10 text-slate-300 border-slate-500/20" },
-      { name: "TypeScript", color: "bg-blue-500/10 text-blue-400 border-blue-500/20" },
-      { name: "Prisma ORM", color: "bg-teal-500/10 text-teal-400 border-teal-500/20" },
-      { name: "MySQL", color: "bg-orange-500/10 text-orange-400 border-orange-500/20" },
-      { name: "Midtrans API", color: "bg-red-500/10 text-red-400 border-red-500/20" },
+      { name: "Laravel (MVC)", color: "bg-red-500/10 text-red-400 border-red-500/20" },
+      { name: "PHP", color: "bg-violet-500/10 text-violet-400 border-violet-500/20" },
+      { name: "MySQL / Relational DB", color: "bg-blue-500/10 text-blue-400 border-blue-500/20" },
+      { name: "Eloquent ORM", color: "bg-orange-500/10 text-orange-400 border-orange-500/20" },
+      { name: "Blade Templating", color: "bg-rose-500/10 text-rose-400 border-rose-500/20" },
+      { name: "Bootstrap / CSS", color: "bg-indigo-500/10 text-indigo-400 border-indigo-500/20" },
     ],
-    demoUrl: "https://shopease-demo.vercel.app",
-    githubUrl: "https://github.com/handino-galih/shopease",
+    demoUrl: "",
+    githubUrl: "https://github.com/Handinoasa/PWL_POS",
     featured: true,
-    imageGradient: "from-orange-500 via-red-500 to-pink-600",
+    imageGradient: "from-rose-600 via-orange-600 to-amber-600",
     star: {
       situation:
-        "Proyek UKM lokal membutuhkan platform penjualan online yang terjangkau namun profesional. Platform yang ada terlalu mahal untuk komisi atau tidak mendukung customisasi produk sesuai kebutuhan bisnis mereka.",
+        "Sebagai proyek mandiri pada mata kuliah Pemrograman Web Lanjut (PWL), sistem kasir ritel konvensional kerap menghadapi tantangan inkonsistensi pencatatan stok, rawannya selisih perhitungan transaksi manual, serta ketiadaan kontrol otorisasi bertingkat antara manajer toko, admin inventaris, dan kasir. Diperlukan solusi web POS yang cepat, konsisten, dan terstruktur sesuai standar arsitektur MVC modern.",
       architecture:
-        "Menggunakan Next.js dengan App Router untuk SSR/SSG hybrid rendering. Prisma ORM digunakan untuk type-safe database queries ke MySQL. Implementasi optimistic UI updates dengan React Suspense. Payment gateway terintegrasi dengan Midtrans Snap API. Image optimization dengan Next/Image dan lazy loading.",
+        "Mengembangkan aplikasi secara mandiri dari hulu ke hilir (end-to-end) menggunakan framework Laravel. Merancang skema basis data relasional via Laravel Migrations (entitas master: level, user, kategori, supplier, barang; serta entitas transaksi: t_stok, t_penjualan, dan t_penjualan_detail). Mengimplementasikan Eloquent ORM untuk relasi data (One-to-Many & BelongsTo), pengontrolan alur bisnis di Controller dengan form request validation, serta antarmuka terstruktur menggunakan Blade templating engine.",
       result:
-        "Platform diluncurkan dengan 50+ produk dan berhasil memproses 120+ transaksi simulasi selama demo. Page load time < 1.5 detik berkat SSG untuk halaman produk statis. Lighthouse score: Performance 94, Accessibility 98.",
+        "Seluruh fungsionalitas inti POS berhasil direalisasikan secara mandiri: manajemen hak akses multi-role (RBAC), siklus CRUD katalog barang & supplier, mutasi keluar-masuk stok barang, hingga pencatatan transaksi penjualan kasir secara realtime. Kode terstruktur rapi memudahkan maintainability dan berhasil lulus evaluasi teknis praktikum PWL dengan hasil sangat memuaskan.",
     },
   },
   {
-    id: "pathfinder",
-    title: "Pathfinder Visualizer",
-    category: "Frontend/UI",
+    id: "pbl-gotrack",
+    title: "GoTrack — Digital Printing Order & Production Tracker",
+    category: "Full-Stack Web",
     semester: 4,
     summary:
-      "Visualisasi interaktif algoritma pencarian jalur (BFS, DFS, A*, Dijkstra) dengan animasi smooth dan mode labirin yang dapat dikustomisasi.",
+      "Platform web pemantauan progres produksi digital printing berbasis alur kerja nyata untuk mitra industri 'Deenhag'. Berperan sebagai System Analyst dalam tim 4 orang yang memimpin rekayasa kebutuhan (SRS), perancangan alur bisnis (UML), dan dokumentasi teknis sistem.",
     techStack: [
-      { name: "React", color: "bg-cyan-500/10 text-cyan-400 border-cyan-500/20" },
-      { name: "TypeScript", color: "bg-blue-500/10 text-blue-400 border-blue-500/20" },
-      { name: "Framer Motion", color: "bg-pink-500/10 text-pink-400 border-pink-500/20" },
-      { name: "CSS Animations", color: "bg-purple-500/10 text-purple-400 border-purple-500/20" },
+      { name: "System Analysis & SRS", color: "bg-indigo-500/10 text-indigo-400 border-indigo-500/20" },
+      { name: "UML & Process Modeling", color: "bg-blue-500/10 text-blue-400 border-blue-500/20" },
+      { name: "ERD & Database Design", color: "bg-cyan-500/10 text-cyan-400 border-cyan-500/20" },
+      { name: "Mitra Industri (Deenhag)", color: "bg-amber-500/10 text-amber-400 border-amber-500/20" },
+      { name: "Workflow Pipeline", color: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20" },
+      { name: "PHP / Web Platform", color: "bg-violet-500/10 text-violet-400 border-violet-500/20" },
     ],
-    demoUrl: "https://pathfinder-viz.vercel.app",
-    githubUrl: "https://github.com/handino-galih/pathfinder-viz",
+    demoUrl: "",
+    githubUrl: "https://github.com/rahmanlana/PBL",
     featured: true,
-    imageGradient: "from-purple-500 via-violet-600 to-indigo-700",
+    imageGradient: "from-cyan-600 via-teal-600 to-emerald-700",
     star: {
       situation:
-        "Algoritma pencarian jalur sulit dipahami hanya melalui buku teks atau pseudocode. Mahasiswa di kelas AI saya membutuhkan alat visualisasi yang interaktif untuk memahami perbedaan antara algoritma BFS, DFS, A*, dan Dijkstra secara visual.",
+        "Mitra industri 'Deenhag' yang bergerak di bidang digital printing menghadapi kendala dalam visibilitas proses produksi pesanan pelanggan. Alur pengerjaan (desain proofing, antrian mesin cetak, finishing, hingga packaging) masih dicatat secara manual/terfragmentasi, menyebabkan rawan penumpukan antrean (bottleneck), ketidakpastian estimasi selesai, dan tingginya beban staf melayani pertanyaan progres pelanggan. Diperlukan platform web tracking terpadu yang memetakan status pengerjaan secara transparan.",
       architecture:
-        "Grid 2D diimplementasikan sebagai array of objects dengan state yang dikelola oleh useReducer untuk performa optimal. Setiap algoritma diimplementasikan sebagai pure function yang mengembalikan urutan node yang dikunjungi. Animasi menggunakan Framer Motion dengan staggered delays untuk visualisasi yang smooth. Fitur maze generator menggunakan algoritma Recursive Division.",
+        "Sebagai System Analyst & Technical Documentation Lead dalam tim 4 orang: melakukan observasi operasional dan requirements gathering langsung bersama stakeholder mitra Deenhag. Menerjemahkan alur kerja cetak ke dalam dokumen spesifikasi kebutuhan sistem (SRS) dan Laporan PBL lengkap. Memodelkan proses bisnis multi-aktor (Kasir, Desainer, Operator Mesin, dan Pelanggan) menggunakan diagram UML (Use Case, Activity Diagram per divisi, Sequence Diagram) serta DFD. Merancang arsitektur basis data relasional (ERD) untuk pelacakan siklus pesanan, status stasiun kerja, dan log riwayat pengerjaan sebagai acuan baku tim developer.",
       result:
-        "Digunakan sebagai alat bantu ajar di kelas AI dengan 35+ mahasiswa. Rata-rata waktu pemahaman konsep berkurang 40% dibandingkan penjelasan di whiteboard. Mendapat bintang 18 di GitHub dari mahasiswa lain.",
+        "Dokumentasi arsitektur dan spesifikasi alur kerja yang terstruktur berhasil menjadi panduan presisi bagi 3 rekan pengembang dalam mengeksekusi sistem tanpa ambiguitas fitur. Platform GoTrack berhasil memvisualisasikan tahapan produksi pesanan digital printing secara realtime, mereduksi miskomunikasi internal mitra Deenhag, serta mendapatkan apresiasi tinggi saat presentasi pengujian PBL kemitraan industri kampus.",
     },
   },
   {
-    id: "nutritrack",
-    title: "NutriTrack — Mobile Nutrition App",
-    category: "Frontend/UI",
-    semester: 5,
-    summary:
-      "Aplikasi mobile cross-platform untuk tracking nutrisi harian dengan barcode scanner, AI meal suggestion, dan progress dashboard interaktif.",
-    techStack: [
-      { name: "React Native", color: "bg-cyan-500/10 text-cyan-400 border-cyan-500/20" },
-      { name: "Expo", color: "bg-slate-500/10 text-slate-300 border-slate-500/20" },
-      { name: "Firebase", color: "bg-yellow-500/10 text-yellow-400 border-yellow-500/20" },
-      { name: "TypeScript", color: "bg-blue-500/10 text-blue-400 border-blue-500/20" },
-    ],
-    demoUrl: "https://expo.dev/@handino-galih/nutritrack",
-    githubUrl: "https://github.com/handino-galih/nutritrack",
-    featured: false,
-    imageGradient: "from-green-400 via-teal-500 to-cyan-600",
-    star: {
-      situation:
-        "Banyak mahasiswa kesulitan menjaga pola makan sehat karena tidak ada cara mudah untuk melacak asupan nutrisi secara cepat. Aplikasi yang ada di pasar terlalu kompleks atau memerlukan langganan premium.",
-      architecture:
-        "Dibangun dengan Expo + React Native untuk cross-platform (iOS & Android). Firebase Authentication untuk login, Firestore sebagai real-time database untuk log makanan, dan Firebase Storage untuk foto makanan. Barcode scanner menggunakan Expo Camera API dan dicocokkan dengan Open Food Facts API. AI suggestion menggunakan simple rule-based engine berdasarkan kekurangan nutrisi harian.",
-      result:
-        "Beta testing dengan 25 pengguna selama 2 minggu. 88% pengguna melaporkan peningkatan kesadaran pola makan. App size 34MB, cold start time < 2 detik. Rating beta: 4.3/5.",
-    },
-  },
-  {
-    id: "dropout-predictor",
-    title: "Student Dropout Predictor (ML)",
+    id: "roastmate",
+    title: "Roastmate — AI Coffee Bean Quality & Brew Advisor",
     category: "AI & Data",
     semester: 5,
     summary:
-      "Model machine learning untuk memprediksi risiko dropout mahasiswa dengan akurasi 87%, dilengkapi dashboard Streamlit interaktif.",
+      "Aplikasi mobile Flutter berbasis AI on-device (TensorFlow Lite & OpenCV) untuk deteksi biji kopi, analisis defect, dan rekomendasi seduh. Berperan sebagai QA Plan Engineer yang merancang strategi pengujian, matriks test case (Unit, Widget, Integrasi, & On-Device), serta verifikasi akurasi inferensi.",
     techStack: [
-      { name: "Python", color: "bg-yellow-500/10 text-yellow-400 border-yellow-500/20" },
-      { name: "scikit-learn", color: "bg-orange-500/10 text-orange-400 border-orange-500/20" },
-      { name: "XGBoost", color: "bg-red-500/10 text-red-400 border-red-500/20" },
-      { name: "Pandas", color: "bg-green-500/10 text-green-400 border-green-500/20" },
-      { name: "Streamlit", color: "bg-pink-500/10 text-pink-400 border-pink-500/20" },
+      { name: "QA & Test Planning", color: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20" },
+      { name: "Test Case Matrix (TC01-TC12)", color: "bg-cyan-500/10 text-cyan-400 border-cyan-500/20" },
+      { name: "Flutter & Dart", color: "bg-blue-500/10 text-blue-400 border-blue-500/20" },
+      { name: "On-Device ML (TFLite)", color: "bg-orange-500/10 text-orange-400 border-orange-500/20" },
+      { name: "OpenCV Computer Vision", color: "bg-violet-500/10 text-violet-400 border-violet-500/20" },
+      { name: "Unit & Integration Testing", color: "bg-indigo-500/10 text-indigo-400 border-indigo-500/20" },
     ],
-    demoUrl: "https://dropout-predictor.streamlit.app",
-    githubUrl: "https://github.com/handino-galih/dropout-predictor",
-    featured: false,
-    imageGradient: "from-red-500 via-orange-500 to-yellow-500",
+    demoUrl: "",
+    githubUrl: "https://github.com/AhmadKevin000/roastmate_app",
+    featured: true,
+    imageGradient: "from-amber-600 via-stone-700 to-amber-950",
     star: {
       situation:
-        "Universitas tidak memiliki sistem early warning untuk mengidentifikasi mahasiswa yang berisiko dropout sebelum terlambat. Data akademik tersedia namun belum dimanfaatkan secara prediktif.",
+        "Aplikasi Roastmate menggabungkan Flutter mobile dengan computer vision (OpenCV) dan inferensi machine learning on-device (TensorFlow Lite) untuk mendeteksi kecacatan (defect), tingkat sangrai (roast), serta menghitung skor kualitas batch biji kopi secara lokal. Tingginya kompleksitas integrasi model AI pada perangkat mobile rentan terhadap edge cases: variasi pencahayaan kamera, latensi inferensi, potensi salah klasifikasi dataset campuran (uncertain classes), serta formula defect rate yang harus presisi. Dibutuhkan perencanaan Quality Assurance (QA) yang sistematis dan menyeluruh.",
       architecture:
-        "Dataset 5.000+ record mahasiswa dengan 20+ fitur (IPK, kehadiran, aktivitas organisasi, beban SKS, dll). Pipeline: data cleaning → feature engineering → SMOTE oversampling untuk imbalanced classes → model training (Random Forest, XGBoost, Logistic Regression). Model terbaik (XGBoost) dituning dengan GridSearchCV. Deployed sebagai web app interaktif menggunakan Streamlit.",
+        "Bertindak sebagai QA Plan Engineer: menyusun dokumen strategi Quality Assurance dan matriks pengujian end-to-end (12 skenario pengujian TC-01 s/d TC-12). Merancang skenario Widget Testing (navigasi, visualisasi detail inspeksi, filter riwayat), Unit Testing untuk verifikasi formula matematis Quality Score (skala 0–100) dan kalkulasi defect rate, serta validasi skenario confidence rendah ('uncertain/mixed batch'). Menguji integrasi pipeline lokal (Scan → On-device inference → SQLite storage → CSV Export) dan menetapkan benchmark performa hardware (latency budget & memory usage pada physical target device).",
       result:
-        "Model XGBoost mencapai akurasi 87.3%, F1-Score 0.84, dan AUC-ROC 0.91 pada test set. 5 fitur terpenting: IPK semester pertama, kehadiran, dan aktivitas portal akademik. Dashboard memungkinkan admin universitas memonitor risiko mahasiswa secara real-time.",
+        "Melalui matriks test plan yang komprehensif, tim pengembang berhasil mendeteksi dan memperbaiki bug logika formula scoring serta error penanganan edge-case dataset kamera sebelum rilis. Aplikasi Roastmate berhasil tervalidasi stabil dalam memproses inferensi on-device secara akurat, alur persistensi data lokal terbukti bebas crash, dan dokumentasi QA menjadi acuan standar verifikasi kualitas perangkat lunak dalam tim.",
     },
   },
   {
-    id: "library-system",
-    title: "LibraryMS — Library Management System",
-    category: "Backend & Database",
-    semester: 3,
+    id: "project-slot-5",
+    title: "Slot Proyek #5 — Segera Hadir",
+    category: "Full-Stack Web",
+    semester: 5,
     summary:
-      "Sistem manajemen perpustakaan berbasis Java dengan arsitektur MVC, database MySQL ternormalisasi, dan fitur pencarian buku yang efisien.",
+      "Ruang ini disiapkan untuk proyek mendatang. Suatu saat Anda dapat menambahkan detail proyek baru dengan mengedit file data portfolio.",
     techStack: [
-      { name: "Java", color: "bg-orange-500/10 text-orange-400 border-orange-500/20" },
-      { name: "MySQL", color: "bg-blue-500/10 text-blue-400 border-blue-500/20" },
-      { name: "JDBC", color: "bg-slate-500/10 text-slate-300 border-slate-500/20" },
-      { name: "MVC Pattern", color: "bg-purple-500/10 text-purple-400 border-purple-500/20" },
+      { name: "Segera Hadir", color: "bg-slate-800 text-slate-400 border-slate-700" },
+      { name: "In Development", color: "bg-slate-800 text-slate-400 border-slate-700" },
     ],
     demoUrl: "",
-    githubUrl: "https://github.com/handino-galih/library-ms",
+    githubUrl: "",
     featured: false,
-    imageGradient: "from-indigo-500 via-blue-600 to-cyan-700",
+    imageGradient: "from-slate-800 via-slate-850 to-slate-900",
     star: {
-      situation:
-        "Perpustakaan kampus masih menggunakan pencatatan manual yang rentan error dan tidak efisien. Proyek ini dibuat sebagai solusi digitalisasi sebagai tugas akhir mata kuliah Basis Data dan OOP.",
-      architecture:
-        "Arsitektur MVC: Model (Java POJO + DAO pattern), View (Java Swing GUI), Controller (Business logic layer). Database MySQL dengan normalisasi 3NF — tabel: buku, anggota, peminjaman, kategori, dengan foreign key constraints dan indexing pada kolom pencarian. Stored procedure untuk laporan bulanan.",
-      result:
-        "Sistem mampu memproses 200+ record buku dengan query pencarian < 50ms. Fitur laporan otomatis mempersingkat waktu rekap bulanan dari 3 jam menjadi 10 menit. Mendapat nilai tertinggi di kelas (A+).",
+      situation: "Slot ini disiapkan untuk dokumentasi proyek nyata Anda berikutnya.",
+      architecture: "Detail arsitektur, tech stack, dan implementasi teknis akan dicantumkan saat proyek siap.",
+      result: "Hasil akhir, metrik, dan dampak proyek akan ditampilkan di sini.",
+    },
+  },
+  {
+    id: "project-slot-6",
+    title: "Slot Proyek #6 — Segera Hadir",
+    category: "Full-Stack Web",
+    semester: 5,
+    summary:
+      "Ruang ini disiapkan untuk proyek mendatang. Suatu saat Anda dapat menambahkan detail proyek baru dengan mengedit file data portfolio.",
+    techStack: [
+      { name: "Segera Hadir", color: "bg-slate-800 text-slate-400 border-slate-700" },
+      { name: "In Development", color: "bg-slate-800 text-slate-400 border-slate-700" },
+    ],
+    demoUrl: "",
+    githubUrl: "",
+    featured: false,
+    imageGradient: "from-slate-800 via-slate-850 to-slate-900",
+    star: {
+      situation: "Slot ini disiapkan untuk dokumentasi proyek nyata Anda berikutnya.",
+      architecture: "Detail arsitektur, tech stack, dan implementasi teknis akan dicantumkan saat proyek siap.",
+      result: "Hasil akhir, metrik, dan dampak proyek akan ditampilkan di sini.",
     },
   },
 ];
@@ -628,21 +629,64 @@ export const skills: Skill[] = [
 export const experiences: Experience[] = [
   {
     id: "card-1",
-    type: "organization",
-    title: "",
-    organization: "",
-    period: "",
-    description: "",
-    tags: [],
+    type: "achievement",
+    title: "Future Entrepreneur Summit & Startup Founder Clash",
+    organization: "BEM FEB Universitas Muhammadiyah Malang & FEST Indonesia",
+    period: "Okt 2024 – Feb 2025",
+    description:
+      "Berpartisipasi aktif dalam rangkaian program pengembangan bisnis, inovasi teknologi, dan kepemimpinan startup nasional hingga internasional. Terpilih sebagai peserta Kompetisi Ide Bisnis Tingkat Nasional (Startup Founder Clash), seleksi FEST GoWorld Asia Futurepreneur 2025, serta menuntaskan pelatihan intensif Public Speaking dan Entrepreneurship di DOME UMM untuk memperkuat kapabilitas validasi produk dan komunikasi bisnis.",
+    tags: ["Startup Ideation", "Public Speaking", "FEST GoWorld", "Business Model", "National Summit"],
+    link: "/certificates/future-entrepreneur-summit.pdf",
+    credentials: [
+      {
+        name: "Peserta Kompetisi Ide Bisnis Tingkat Nasional (Startup Founder Clash)",
+        link: "/certificates/future-entrepreneur-summit.pdf#page=6",
+        type: "pdf",
+      },
+      {
+        name: "Participant in FEST GoWorld Asia Futurepreneur Selection Program 2025 (International)",
+        link: "/certificates/future-entrepreneur-summit.pdf#page=2",
+        type: "pdf",
+      },
+      {
+        name: "Peserta Training Public Speaking Tingkat Nasional (Grow Project)",
+        link: "/certificates/future-entrepreneur-summit.pdf#page=1",
+        type: "pdf",
+      },
+      {
+        name: "Peserta Pelatihan Entrepreneurship Tingkat Nasional (Grow x FEST)",
+        link: "/certificates/future-entrepreneur-summit.pdf#page=5",
+        type: "pdf",
+      },
+      {
+        name: "Peserta Seminar Nasional Future Entrepreneur Summit 2025",
+        link: "/certificates/future-entrepreneur-summit.pdf#page=4",
+        type: "pdf",
+      },
+      {
+        name: "Peserta Webinar Nasional Soft Skill Development di Era Digitalisasi",
+        link: "/certificates/future-entrepreneur-summit.pdf#page=3",
+        type: "pdf",
+      },
+    ],
   },
   {
     id: "card-2",
     type: "committee",
-    title: "",
-    organization: "",
-    period: "",
-    description: "",
-    tags: [],
+    title: "Volunteer Panitia Prastudi JTI Polinema 2025",
+    organization: "Himpunan Mahasiswa Teknologi Informasi (HMTI) Polinema",
+    period: "Agustus 2025",
+    description:
+      "Berkontribusi sebagai panitia pelaksana kegiatan orientasi mahasiswa baru Jurusan Teknologi Informasi Politeknik Negeri Malang tahun 2025. Bertanggung jawab atas kedisiplinan dan koordinasi operasional lapangan, memfasilitasi pengenalan budaya akademik komputasi, serta menjaga kelancaran alur teknis kegiatan ratusan mahasiswa baru lintas program studi.",
+    tags: ["Volunteer", "Event Operations", "Field Management", "Team Leadership", "HMTI Polinema"],
+    link: "/certificates/Handino Asa Galih R.pdf",
+    credentials: [
+      {
+        name: "Sertifikat Panitia Prastudi Mahasiswa Baru JTI Polinema 2025 (No: 21069/PL2.3/KM/2025)",
+        link: "/certificates/Handino Asa Galih R.pdf",
+        type: "pdf",
+      },
+    ],
   },
   {
     id: "card-3",
